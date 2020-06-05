@@ -15,14 +15,29 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Task',
+            name="Task",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content', models.CharField(max_length=150)),
-                ('created_at', models.DateTimeField(auto_now=True)),
-                ('is_done', models.BooleanField(default=False)),
-                ('is_priority', models.BooleanField(default=False)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='task')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("content", models.CharField(max_length=150)),
+                ("created_at", models.DateTimeField(auto_now=True)),
+                ("is_done", models.BooleanField(default=False)),
+                ("is_priority", models.BooleanField(default=False)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="task",
+                    ),
+                ),
             ],
         ),
     ]
