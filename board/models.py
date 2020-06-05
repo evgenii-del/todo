@@ -8,3 +8,6 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     is_done = models.BooleanField(default=False)
     is_priority = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('is_done', '-is_priority', '-created_at')
