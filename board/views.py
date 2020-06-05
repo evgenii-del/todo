@@ -7,13 +7,17 @@ from .permissions import IsOwnerOrReadOnly
 from .serializers import TaskSerializer
 
 
-class TaskViewSet(
-    viewsets.GenericViewSet,
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    mixins.ListModelMixin,
-):
+class TaskViewSet(viewsets.GenericViewSet,
+                  mixins.CreateModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.DestroyModelMixin,
+                  mixins.ListModelMixin):
+    """
+    ViewSet to work with to-do list.
+    Methods implemented: create a task, delete a task,
+    cancel the task as a priority, сancel the task as completed.
+    """
+
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     serializer_class = TaskSerializer
 
@@ -26,7 +30,7 @@ class TaskViewSet(
         return queryset
 
     @action(detail=True, methods=["patch"])
-    def change_done(self, request, *args, **kwargs):
+    def done(self, *args, **kwargs):
         task = Task.objects.filter(pk=kwargs["pk"])
 
         if task[0].is_done:
@@ -38,7 +42,7 @@ class TaskViewSet(
         return Response(status=201)
 
     @action(detail=True, methods=["patch"])
-    def change_priority(self, request, *args, **kwargs):
+    def priority(self, *args, **kwargs):
         task = Task.objects.filter(pk=kwargs["pk"])
 
         if task[0].is_priority:
